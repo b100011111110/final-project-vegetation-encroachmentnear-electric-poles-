@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vegetation Encroachment Detection Near Powerlines</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+            background-color: #333; /* Grey background */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+    }
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+    main {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Drop shadow */
+            margin: 20px; /* Add some space around the main content */
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1);
+        }
+    .container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+    .image-container {
+        width: 45%;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow: auto;
+        position: relative;
+        border-radius: 10px; /* Rounded corners */
+    }
+    .image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+    .zoom-buttons {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    .zoom-buttons button {
+        background-color: #f4f4f4;
+        border: none;
+        padding: 5px 10px;
+        margin: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <h1>Vegetation Encroachment Detection Near Powerlines</h1>
+    </header>
+    <main>
+    <div class="container">
+        <div class="image-container">
+            <h2>Downloaded Image</h2>
+            <div class="zoom-buttons">
+                <button onclick="zoomIn('downloaded-image')">+</button>
+                <button onclick="zoomOut('downloaded-image')">-</button>
+            </div>
+            <img id="downloaded-image" src="./static/downlod.png" alt="Downloaded Image">
+        </div>
+        <div class="image-container">
+            <h2>Processed Image</h2>
+            <div class="zoom-buttons">
+                <button onclick="zoomIn('processed-image')">+</button>
+                <button onclick="zoomOut('processed-image')">-</button>
+            </div>
+            <img id="processed-image" src="./static/finalOutput.png" onload="checkFirstPixelColor('processed-image')" alt="Processed Image">
+        </div>
+    </div>
+</main>
+    <div>
+        <main>
+            <p id="result"></p>
+            <div class="legend">
+                <p>Legend:</p>
+                <p><span style="color: red;">Color - Red:</span> Intersection likely present</p>
+                <p><span style="color: green;">Color - Green:</span> Intersection unlikely</p>
+                <p><span style="color: rgb(0, 255, 242);">Color - Cyan:</span> Powerline</p>
+                <p><span style="color: rgb(237, 6, 245);">Color - Purple:</span> Point submitted</p>
+            </div>
+        </main>
+    </div>
+    
+    <footer>
+        <p>© 2024 Vegetation Encroachment Detection Near Powerlines</p>
+    </footer>
+    
+    <script>
+        function zoomIn(imageId) {
+            var img = document.getElementById(imageId);
+            var currWidth = img.clientWidth;
+            img.style.width = (currWidth + 50) + "px";
+        }
+
+        function zoomOut(imageId) {
+            var img = document.getElementById(imageId);
+            var currWidth = img.clientWidth;
+            img.style.width = (currWidth - 50) + "px";
+        }
+        // function checkFirstPixelColor(imageId) {
+        //     var img = document.getElementById(imageId);
+        //     var canvas = document.createElement('canvas');
+        //     var ctx = canvas.getContext('2d');
+        //     canvas.width = img.width;
+        //     canvas.height = img.height;
+        //     ctx.drawImage(img, 0, 0, img.width, img.height);
+        //      var imageData = ctx.getImageData(0, 0, 1, 1).data;
+        //      console.log(imageData)
+        //      var isCyan =  imageData[3] === 255; // Cyan color (RGB format)
+        
+        //     // Print statement based on the color of the first pixel
+        //     if (isCyan) {
+        //         document.getElementById('result').innerHTML = "Encroachment detected!";
+        //     } else {
+        //         document.getElementById('result').innerHTML = "No Encroachment Detected";
+        //     }
+        //}
+    </script>
+</body>
+</html>
